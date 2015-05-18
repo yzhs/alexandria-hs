@@ -25,9 +25,13 @@ latexToPdf :: Configuration a => a -> FilePath -> FilePath -> IO ()
 latexToPdf conf input tempDirectory = callProcess "rubber" ["--module", "xelatex",
                                                             "--force", "--into", tempDirectory,
                                                             input]
-runSwishe :: Configuration a => a -> [String] -> IO String
-runSwishe conf args = readProcess "swish-e" params ""
-  where params = ["-c", swisheConfig conf, "-f", swisheIndex conf, "-x", "<swishtitle>\n"] ++ args
+generateIndex :: Configuration a => a -> IO String
+generateIndex conf = readProcess "index++" params ""
+  where params = ["-c", swisheConfig conf, knowledgeDirectory conf]
+
+searchSwishe :: Configuration a => a -> [String] -> IO String
+searchSwishe conf args = readProcess "search++" params ""
+  where params = ["-c", swisheConfig conf] ++ args
 
 
 
@@ -123,7 +127,7 @@ renderResults conf matches               = mapM_ (renderAny conf) ids >> return 
 -- | Run a full text search to obtain an ordered list of documents matching the
 -- query.
 findDocs :: Configuration a => a -> [String] -> IO [Id]
-findDocs conf args    = processOutput $ runSwishe conf ("-w":args)
+findDocs conf args    = processOutput $ searchSwishe conf args
   where stripComments = dropWhile (isPrefixOf "#")
-        takeResults   = map takeBaseName . takeWhile (not . (== "."))
+        takeResults   = map (takeBaseName . (\line -> words line !! 1)) . takeWhile (not . (== "."))
         processOutput = liftM (takeResults . stripComments . lines)

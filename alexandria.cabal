@@ -16,7 +16,11 @@ version:             0.1.0.0
 synopsis:            A tool for storing and searching mathematical knowledge
 
 -- A longer description of the package.
--- description:         
+description:         This packages contains a library for rendering and
+                     searching a collection of LaTeX snippets.  The snippets
+                     are rendered to PNG images.  Using the "swish-e" programme,
+                     full text search is provided.  This library is intended as
+                     a basis for various user interfaces.
 
 -- URL for the project homepage or repository.
 homepage:            https://github.com/yzhs/alexandria
@@ -61,7 +65,7 @@ library
   -- other-extensions:    
   
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.7 && <4.8, MissingH >=1.2 && <1.4, directory >=1.2 && <1.3, filepath >=1.3 && <1.4, unix >=2.7 && <2.8, process >=1.2 && <1.3, dyre >=0.8 && <0.9
+  build-depends:       base >=4.7 && <4.8, MissingH, directory >=1.2 && <1.3, filepath >=1.3 && <1.4, unix >=2.7 && <2.8, process >=1.2 && <1.3, dyre >=0.8 && <0.9
   
   -- Directories containing source files.
   -- hs-source-dirs:      

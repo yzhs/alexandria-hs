@@ -25,7 +25,7 @@ class Configuration a where
 
   -- | Path to swish-e configuration file
   swisheConfig :: a -> FilePath
-  swisheConfig conf = baseDirectory conf </> "swish-e.conf"
+  swisheConfig conf = baseDirectory conf </> "swish++.conf"
 
   -- | Path to swish-e index file
   swisheIndex :: a -> FilePath
